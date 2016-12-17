@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Пансионат Кудры</title>
+	<link rel="stylesheet" href="/static/css/style.css">
+	<link rel="stylesheet" href="/static/css/button.css">
+	<link rel="stylesheet" href="/static/css/slick.css">
+	<link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+	<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+	{% block head %}
+	{% endblock %}
+</head>
+<body>
+<div class="popup" id="popup">
+	<div class="popup_title">
+		Бронирование
+	</div>
+	<div class="popup_content">
+		Сервис находится в разработке<br/>
+		По вопросам бронирования обращайтесь по номеру:<br/>
+		<br/>
+		+7 940 965 61 11
+	</div>
+	<div class="popup_close" id="popup_close">
+		X
+	</div>
+</div>
+<div class="blur" id="blur">
+	<header>
+		<a href="/"><img src="/static/img/logo.png" alt=""></a>
+		<div class="right">
+			<div class="phone">
+				<div class="img"></div>
+				+7 940 965 61 11
+			</div>
+			<div class="email">
+				<div class="img"></div>
+				kodor1@mail.ru
+			</div>
+			<div class="addres">
+				<div class="img"></div>
+				Республика Абхазия, Гагрский район, п. Алахадзы, Цитрусовый свх.
+			</div>
+		</div>
+	</header>
+	<div class="menu">
+		<ul>
+			<a href="/"><li class="anim_btn anim_btn_menu">ГЛАВНАЯ</li></a>
+			<a href="/rooms"><li class="anim_btn anim_btn_menu">НОМЕРА И ЦЕНЫ</li></a>
+			<a href="/services"><li class="anim_btn anim_btn_menu">УСЛУГИ</li></a>
+			<a href="/reviews"><li class="anim_btn anim_btn_menu">ОТЗЫВЫ</li></a>
+			<a href="/about"><li class="anim_btn anim_btn_menu">О ПАНСИОНАТЕ</li></a>
+			<li class="anim_btn anim_btn_menu click">БРОНИРОВАНИЕ</li>
+		</ul>
+	</div>
+	
+	{% block content %}
+	{% autoescape off %}
+		{% for item in article %}
+			<div class="title">{{ item.title }}</div>
+			<div class="content_text">{{ item.text }}</div>
+			
+			{% if item.photo %}
+				{% if item.photo == True %}
+				<script src="/static/js/slick.min.js"></script>
+				<div class="slider-for">
+				{% for img in images %}
+						<div>
+							<img src="/media/{{ img.images }}" alt="" style="width:100%;">
+						</div>
+				{% endfor %}
+				</div>
+				<div class="slider-nav">
+					{% for img in images %}
+						<div>
+							<img src="/media/{{ img.images }}" alt="" style="width:100%; height:100%;">
+						</div>
+					{% endfor %}
+				</div>
+				<script>
+					 $('.slider-for').slick({
+					  slidesToShow: 1,
+					  slidesToScroll: 1,
+					  arrows: false,
+					  fade: true,
+					  adaptiveHeight: true,
+					  asNavFor: '.slider-nav'
+					});
+					$('.slider-nav').slick({
+					  slidesToShow: 3,
+					  slidesToScroll: 1,
+					  asNavFor: '.slider-for',
+					  centerMode: true,
+					  focusOnSelect: true
+					});
+				</script>
+
+				{% endif %}
+			{% endif %}
+
+		{% endfor %}
+	{% endautoescape %}
+	{% endblock %}
+	
+	{% if map == True %}
+	<div class="map">
+		<div class="title">
+			Как нас найти
+			
+		</div>
+		<div id="map" style="max-width: 1200px; height: 370px"></div>
+
+	</div>
+	{% endif %}
+	<div class="links">
+		<!-- Gismeteo informer START -->
+		<link rel="stylesheet" type="text/css" href="https://bst1.gismeteo.ru/assets/flat-ui/legacy/css/informer.min.css">
+		<div id="gsInformerID-0rdc21FSY2hMjo" class="gsInformer" style="width:225px;height:89px">
+  			<div class="gsIContent">
+    			<div id="cityLink">
+    				<a href="https://www.gismeteo.ru/city/daily/5246/" target="_blank">Погода в Гагре</a>
+    			</div>
+    			<div class="gsLinks">
+			      <table>
+			        <tr>
+			            <td>
+			            <div class="leftCol">
+			              <a href="https://www.gismeteo.ru/" target="_blank">
+			                <img alt="Gismeteo" title="Gismeteo" src="https://bst1.gismeteo.ru/assets/flat-ui/img/logo-mini2.png" align="middle" border="0" />
+			                <span>Gismeteo</span>
+			              </a>
+			            </div>
+			            <div class="rightCol">
+			              <a href="https://www.gismeteo.ru/city/weekly/5246/" target="_blank">Прогноз на 2 недели</a>
+			            </div>
+			            </td>
+			        </tr>
+			      </table>
+   				</div>
+  			</div>
+		</div>
+		<script async src="https://www.gismeteo.ru/api/informer/getinformer/?hash=0rdc21FSY2hMjo" type="text/javascript"></script>
+		<!-- Gismeteo informer END -->
+
+		<div class="right">
+			<a href="#">
+				<img src="/static/img/links.png" class="vk" alt="">
+			</a>
+			<a href="#">
+				<img src="/static/img/links.png" class="ok" alt="">
+			</a>
+			<a href="#">
+				<img src="/static/img/links.png" class="in" alt="">
+			</a>
+			<a href="#">
+				<img src="/static/img/links.png" class="fb" alt="">
+			</a>
+		</div>
+	</div>
+	<footer>
+		<div class="left">
+			<div class="phone">
+				<div class="img"></div>
+				+7 940 965 61 11
+			</div>
+			<div class="email">
+				<div class="img"></div>
+				kodor1@mail.ru
+			</div>
+			<div class="addres">
+				<div class="img"></div>
+				Республика Абхазия, Гагрский район, п. Алахадзы, Цитрусовый свх.
+			</div>
+		</div>
+		<div class="right">
+			<img src="/static/img/footer_logo.png" alt=""><br/>
+			Создание сайта - Digital Art
+		</div>
+	</footer>
+
+<div id="hide-layout" class="hide-layout"></div>
+
+<script type="text/javascript">
+  ymaps.ready(init);
+    var myMap,
+        myPlacemark;
+
+    function init(){    
+
+		ymaps.route([
+		    [43.230971, 40.318243],
+		    {
+		        type: 'viaPoint',
+		        point: [43.201179, 40.293932]
+		    },
+		    [43.196142, 40.278922]
+		]).then(
+		    function (route) {
+		        myMap.geoObjects.add(route);
+		    },
+		    function (error) {
+		        alert("Возникла ошибка: " + error.message);
+		    }
+		);
+
+
+        myMap = new ymaps.Map("map", {
+            center: [43.196142, 40.278922],
+            zoom: 13
+        });
+
+        myPlacemark = new ymaps.Placemark([43.196142, 40.278922], { 
+            hintContent: 'Москва!', 
+            balloonContent: 'Столица России' 
+        });
+
+        myMap.geoObjects.add(myPlacemark);
+    }
+
+
+</script>
+	
+<script>
+	$(function() {
+  		alignCenter($('#popup'));
+  		$('#popup').css({top:'-100%'}); // центрировали окно
+  		$(window).resize(function() {
+    		alignCenter($('#popup')); // центрирование при ресайзе окна
+  		})
+
+  		function alignCenter(elem) {
+  			elem.css({ // назначение координат left и top
+    		left: ($(window).width() - elem.width()) / 2 + 'px',
+    		top: ($(window).height() - elem.height()) / 2 + 'px'
+  		})
+	}
+  	})
+
+
+
+	$('.click').click(function() {
+  		$('#hide-layout, #popup').fadeIn(300);  // плавно показываем окно/фон
+
+  		$('#popup').animate({top:'22%'});
+  		$('#blur').css({
+				"-webkit-filter": "blur(5px)",
+				"-moz-filter": "blur(5px)",
+				"-o-filter": "blur(5px)",
+				"-ms-filter": "blur(5px)",
+				"filter": "blur(5px)"
+		});
+	})
+
+	$('#popup_close, #hide-layout').click(function() {
+		$('#popup').animate({top:'-100%'});
+  		$('#hide-layout,#popup').fadeOut(300); // плавно скрываем окно/фон
+  		$('#blur').css({
+				"-webkit-filter": "blur(0px)",
+				"-moz-filter": "blur(0px)",
+				"-o-filter": "blur(0px)",
+				"-ms-filter": "blur(0px)",
+				"filter": "blur(0px)"
+		});
+	})
+</script>
+
+</div>
+</body>
+</html>

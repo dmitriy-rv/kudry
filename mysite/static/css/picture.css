@@ -1,0 +1,86 @@
+.item {
+    width: 350px;
+    height: 235px;
+    margin: 10px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    cursor: default;
+    border:0px solid #fff;
+    transition: all 0.7s ease-in-out;
+}
+
+
+.item .wrap, .item .content {
+    width: 350px;
+    height: 235px;
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+}
+.item img {
+    display: block;
+    position: relative;
+    transform: scaleY(1);
+    transition: all 0.7s ease-in-out;
+}
+.item h2 {
+    text-transform: uppercase;
+    text-align: center;
+    position: relative;
+    font-size: 24px;
+    font-family: bold;
+    padding: 10px;
+    margin: 20px 0 0 0;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    margin: 20px 40px 0px 40px;
+    transform: scale(0);
+    color: #fff;
+    transition: all 0.5s linear;
+    opacity: 0;
+}
+.item p {
+    font-size: 16px;
+    position: relative;
+    color: #fff;
+    padding: 10px 20px 20px;
+    text-align: center;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.5s linear;
+}
+.item a.info {
+    display: inline-block;
+    text-decoration: none;
+    padding: 7px 14px;
+
+    text-transform: uppercase;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.5s linear;
+}
+
+.item .wrap { 
+    background-color: #00722e;
+    transition: all 0.5s linear;
+    opacity: 0;
+}   
+
+.item:hover img { 
+    transform: scale(10);
+    opacity: 0;
+}
+
+.item:hover .wrap { 
+    opacity: 1;
+
+}   
+
+.item:hover h2,
+.item:hover p,
+.item:hover a.info{ 
+    transform: scale(1);
+    opacity: 1;
+}

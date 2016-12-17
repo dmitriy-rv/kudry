@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block head %}
+	<link rel="stylesheet" href="/static/css/services.css">
+	<link rel="stylesheet" href="/static/css/picture.css">
+{% endblock %}
+
+{% block content %}
+	<div class="service">
+		{% for element in service %}
+		{% load cropping %}
+			<div class="item">
+				<img src="{% cropped_thumbnail element "cropping" %}">
+				<div class="wrap">
+					<h2>{{ element.title }}</h2>
+					<p>{{ element.main_text }}</p>
+					{% if element.more == True %}
+					<a href="/service/{{ element.id }}" class="anim_btn info">
+						ПОДРОБНЕЕ
+					</a>
+					{% endif %}
+				</div>
+			</div>
+
+		{% endfor %}
+	</div>
+	
+
+{% endblock %}

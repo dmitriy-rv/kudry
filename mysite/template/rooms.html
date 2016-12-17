@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block head %}
+	<link rel="stylesheet" href="/static/css/rooms.css">
+	<link rel="stylesheet" href="/static/css/slicebox.css">
+	<!--<link rel="stylesheet" href="/static/css/custom.css">
+	<link rel="stylesheet" href="/static/css/demo.css">-->
+	
+	<script type="text/javascript" src="/static/js/modernizr.custom.46884.js"></script>
+	<script type="text/javascript" src="/static/js/jquery.slicebox.js"></script>
+
+	
+{% endblock %}
+
+{% block content %}
+{% autoescape off %}
+	{% for item in room %}
+		<div class="title">{{ item.title }}</div>
+		<div class="room_slider">
+			<ul id="sb-slider-{{ item.id }}" class="sb-slider">
+				{% for img in images %}
+					{% if img.title_id == item.id %}
+						<li>
+							<img src="/media/{{ img.images }}" alt="" style="width:600px;height:400px;">
+						</li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+
+			<div id="nav-arrows-{{ item.id }}" class="nav-arrows">
+				<a href="#"></a>
+				<a href="#"></a>
+			</div>
+
+			<div id="nav-dots-{{ item.id }}" class="nav-dots">
+				{% for img in images %}
+				{% if img.title_id == item.id %}
+					<span></span>
+				{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+		<div class="text">
+			{{ item.text }}
+			
+			<span>Цена за сутки проживания в номере:</span>
+
+			<table>
+				<tr>
+					<td>Май</td>
+					<td>Июнь</td>
+					<td>Июль</td>
+					<td>Август</td>
+					<td>Сентябрь</td>
+					<td>Октябрь</td>
+					<td>Ноябрь-Апрель</td>
+				</tr>
+				<tr>
+					<td>{{ item.may }}</td>
+					<td>{{ item.june }}</td>
+					<td>{{ item.july }}</td>
+					<td>{{ item.august }}</td>
+					<td>{{ item.september }}</td>
+					<td>{{ item.october }}</td>
+					<td>{{ item.other }}</td>
+				</tr>
+			</table>
+			
+			<div class="button click">
+				Забронировать
+			</div>
+
+		</div>
+		
+
+		<script type="text/javascript">
+			$(function() {
+				
+				var Page = (function() {
+
+					var $navArrows = $( '#nav-arrows-{{ item.id }}' ).hide(),
+						$navDots = $( '#nav-dots-{{ item.id }}' ).hide(),
+						$nav = $navDots.children( 'span' ),
+						slicebox = $( '#sb-slider-{{ item.id }}' ).slicebox( {
+							onReady : function() {
+
+								$navArrows.show();
+								$navDots.show();
+
+							},
+
+							onBeforeChange : function( pos ) {
+
+								$nav.removeClass( 'nav-dot-current' );
+								$nav.eq( pos ).addClass( 'nav-dot-current' );
+
+							},
+
+							orientation : 'v',
+							cuboidsCount : 5,
+							cuboidsRandom : false,
+							disperseFactor : 30
+						} ),
+						
+						init = function() {
+
+							initEvents();
+							
+						},
+						initEvents = function() {
+
+							// add navigation events
+							$navArrows.children( ':first' ).on( 'click', function() {
+
+								slicebox.next();
+								return false;
+
+							} );
+
+							$navArrows.children( ':last' ).on( 'click', function() {
+								
+								slicebox.previous();
+								return false;
+
+							} );
+
+							$nav.each( function( i ) {
+							
+								$( this ).on( 'click', function( event ) {
+									
+									var $dot = $( this );
+									
+									if( !slicebox.isActive() ) {
+
+										$nav.removeClass( 'nav-dot-current' );
+										$dot.addClass( 'nav-dot-current' );
+									
+									}
+									
+									slicebox.jump( i + 1 );
+									return false;
+								
+								} );
+								
+							} );
+
+						};
+
+						return { init : init };
+
+				})();
+
+				Page.init();
+
+			});
+		</script>
+	{% endfor %}
+
+{% endautoescape %}
+{% endblock %}

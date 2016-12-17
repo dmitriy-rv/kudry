@@ -1,0 +1,79 @@
+.room_slider {
+  display: inline-block;
+  width: 590px;
+  position: relative; }
+  .room_slider .nav-arrows {
+    margin-top: 10px;
+    height: 65px;
+    display: inline-block; }
+    .room_slider .nav-arrows a {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      background-color: white;
+      border: 1px solid #00722e;
+      margin-right: 10px; }
+    .room_slider .nav-arrows a:nth-child(1) {
+      background: url("../img/next.png") center;
+      float: right; }
+    .room_slider .nav-arrows a:nth-child(2) {
+      background: url("../img/prev.png") center;
+      float: left; }
+    .room_slider .nav-arrows a:hover {
+      width: 55px;
+      height: 55px; }
+  .room_slider .nav-dots {
+    display: inline-block;
+    margin-left: 50px; }
+    .room_slider .nav-dots span {
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin: 3px;
+      background: #00722e;
+      cursor: pointer;
+      box-shadow: 0 1px 1px rgba(255, 255, 255, 0.6), inset 0 1px 1px rgba(0, 0, 0, 0.1);
+      transition: 0.5s; }
+    .room_slider .nav-dots .nav-dot-current {
+      box-shadow: 0 1px 1px rgba(255, 255, 255, 0.6), inset 0 1px 1px rgba(0, 0, 0, 0.1), inset 0 0 0 5px #00722e, inset 0 0 0 15px #fff; }
+
+.text {
+  display: inline-block;
+  width: 590px;
+  vertical-align: top;
+  text-align: justify;
+  padding: 10px 20px; }
+  .text span {
+    color: #00722e;
+    font-family: bold;
+    font-size: 24px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: block; }
+  .text table {
+    border: 1px solid black;
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    font-size: 16px;
+    font-family: bold; }
+    .text table td {
+      border: 2px solid black;
+      padding: 10px; }
+  .text .button {
+    color: #fff;
+    background-color: #00722e;
+    float: right;
+    width: 170px;
+    height: 40px;
+    margin-right: 10px;
+    margin-top: 30px;
+    text-align: center;
+    padding-top: 7px;
+    font-size: 19px;
+    border: 1px solid #00722e;
+    transition: 0.3s; }
+  .text .button:hover {
+    color: #00722e;
+    background-color: #fff; }

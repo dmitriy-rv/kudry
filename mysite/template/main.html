@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block head %}
+	<link rel="stylesheet" href="/static/css/picture.css">
+{% endblock %}
+
+{% block content %}
+
+	<script type="text/javascript" src="/static/js/jquery.jcarousel.min.js"></script>
+
+	<div class="slider">
+		<div class="jcarousel">
+			<ul class="jcarousel-list">
+				{% for item in action %}
+				{% load cropping %}
+				<li class="jcarousel-item">
+					<img src="{% cropped_thumbnail item "cropping" %}">
+					<div class="mess">
+						<div class="title">{{ item.title }}</div>
+						<div class="text">{{ item.main_text }}</div>
+						<a href="action/{{ item.id }}">
+							<div class="anim_btn button">ПОДРОБНЕЕ</div>
+						</a>
+					</div>
+				</li>
+				{% endfor %}
+			</ul>
+
+			<a href="#" class="jc-control jcarousel-control-prev" data-jcarouselcontrol="true"></a>
+			<a href="#" class="jc-control jcarousel-control-next" data-jcarouselcontrol="true"></a>		
+		</div>
+	</div>
+
+	<script type="text/javascript">
+			$(function() {
+    			$('.jcarousel').jcarousel({
+        			// Configuration goes here
+        			list: '.jcarousel-list',
+        			items: '.jcarousel-item',
+        			wrap: 'circular'
+        		//	animation: {
+        		//		duration: 600,
+        		//		easing:   'linear'
+        		//	}
+    			});
+
+    			$('.jcarousel-control-prev')
+            .on('jcarouselcontrol:active', function() {
+                $(this).removeClass('inactive');
+            })
+            .on('jcarouselcontrol:inactive', function() {
+                $(this).addClass('inactive');
+            })
+            .jcarouselControl({
+                target: '-=1'
+            });
+
+        $('.jcarousel-control-next')
+            .on('jcarouselcontrol:active', function() {
+                $(this).removeClass('inactive');
+            })
+            .on('jcarouselcontrol:inactive', function() {
+                $(this).addClass('inactive');
+            })
+            .jcarouselControl({
+                target: '+=1'
+            });
+
+    			$('.jcarousel').jcarouselAutoscroll({
+      				interval: 6000,
+      				autostart: true
+  				});
+			});
+	</script>
+
+
+
+
+	<div class="booking">
+		<div class="title">
+			Бронирование номеров
+		</div>
+		<form action="" class="form">
+			<div>
+				<label for="date_from">Дата заезда:</label>
+				<input type="date" name="date_from">	
+			</div>
+			<div>
+				<label for="date_to">Дата выезда:</label>
+				<input type="date" name="date_to">
+			</div>
+		</form>
+		<div class="book_link">
+			<div class="book_but click">
+				Забронировать
+			</div>
+			<div class="book_but">
+				Авиа и Ж/Д билеты
+			</div>
+		</div>
+	</div>
+	<div class="terr">
+		<div class="title">
+			На территории
+		</div>
+		<div class="tr_wrap">
+		{% for element in service %}
+		{% load cropping %}
+			<div class="item">
+				<img src="{% cropped_thumbnail element "cropping" %}">
+				<div class="wrap">
+					<h2>{{ element.title }}</h2>
+					<p>{{ element.main_text }}</p>
+					{% if element.more == True %}
+					<a href="/service/{{ element.id }}" class="anim_btn info">
+						ПОДРОБНЕЕ
+					</a>
+					{% endif %}
+				</div>
+			</div>
+		{% endfor %}
+		</div>
+	</div>
+	<div class="main_text">
+		<div class="title">
+			О пансионате
+		</div>
+		<div class="text">
+			{% autoescape off %}
+				{% for item in text %}
+					{{ item.text }}
+				{% endfor %}
+			{% endautoescape %}
+		</div>
+	</div>
+
+{% endblock %}

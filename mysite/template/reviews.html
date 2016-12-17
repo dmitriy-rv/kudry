@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block head %}
+	<link rel="stylesheet" href="/static/css/reviews.css">
+{% endblock %}
+
+
+{% block content %}
+	<div class="title">Отзывы</div>
+	{% if message == True %}
+		<div class="title_text">
+			Благодарим Вас за сотрудничество! Отзыв появится на сайте после модерации 
+		</div>
+	{% elif message == False %}
+	<div class="title_text">Рады приветствовать на нашем сайте.Прошу комментировать, подсказывать, рассказывать,сообщать о чем либо интересном - так как нам есть к чему стремится.</div> 
+	{% endif %}       
+	{% autoescape off %}	
+	{% for item in reviews %}
+		{% if item.allow == True %}
+			<div class="review">
+				<div class="name">{{ item.name }}</div>
+				<div class="date">Останавливались: с {{ item.date_from|date:"j E" }}  по {{ item.date_to }}</div>
+				<div class="text">
+					{{ item.text }}
+				</div>
+			</div>
+		{% endif %}
+	{% endfor %}
+	{% endautoescape %}
+	
+	<div class="title">
+		Оставьте свой отзыв	
+	</div>
+
+	<form action="/send_review">
+		<table>
+			<tr>
+				<td class="tab_tl">
+					Ваше имя:
+				</td>
+				<td>
+					<input type="text" name="name">
+				</td>
+			</tr>
+			<tr>
+				<td class="tab_tl">
+					Датa приезда:
+				</td>
+				<td>
+					<input type="date" name="date_from">
+				</td>
+			</tr>
+			<tr>
+				<td class="tab_tl">
+					Дата отъезда:
+				</td>
+				<td>
+					<input type="date" name="date_to">
+				</td>
+			</tr>
+			<tr>
+				<td class="tab_tl">
+					Отзыв:
+				</td>
+				<td>
+					<textarea name="text">
+					</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td> 
+					<input type="submit" value="Отправить" class="button"> 
+				</td>
+			</tr>
+		</table>
+	</form>
+
+{% endblock %}
